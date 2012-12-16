@@ -10,7 +10,7 @@ APP_PATH="/home/hhbd/www/php/app/www.hhbd.pl"
 echo "Deployment script for hhbdevolution project (from GitHub)";
 if [[ "$1" != "" ]]; then
   #clone read-only repo from github
-  git clone git://github.com/jkulak/hhbdevolution.git v0.$1 $APP_PATH/code/tags/v0.$1
+  git clone git://github.com/jkulak/hhbdevolution.git v0.$1
 
   # copy previous .httaccess instead of creating it from example
   cp $APP_PATH/www/public/.htaccess $APP_PATH/code/tags/v0.$1/public/
