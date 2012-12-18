@@ -104,11 +104,21 @@
 </div>
 
 <div id="additional">
+
+  <?php
+
+  // 2012-12-18, jkulak
+  // temprorary turning off google ads on search results website 
+
+  /*
   <div class="box googleads">
     <h3 class="hidden">Google Ads</h3>
     <?php echo $this->partial('common/googleAds/_rectangle.phtml'); ?>
   </div>
-  
+  */
+
+  ?>
+
   <?php echo $this->partial('search/box/_list.phtml', array('items' => $this->mostPopularSearches, 'title' => 'Najczęściej wyszukiwane')) ?>
   
   <?php echo $this->partial('search/box/_list.phtml', array('items' => $this->recentSearches, 'title' => 'Ostatnie trafne wyniki')) ?>
