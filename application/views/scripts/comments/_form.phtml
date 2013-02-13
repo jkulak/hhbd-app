@@ -16,7 +16,12 @@
   </div>
   <input type="hidden" name="com_object_id" value="<?php echo $this->comObjectId ?>" id="com_object_id">
   <input type="hidden" name="com_object_type" value="<?php echo $this->comObjectType ?>" id="com_object_type">
-  <!-- <input type="hidden" name="com_ajax_request" value="0" id="com_ajax_request"> -->
+  
+  <div class="hidden">
+    <?php // Honey Pot spam filter field ?>
+    <label>Zostaw puste:</label>
+    <input type="text" name="email-honey-pot" value="" id="email-honey-pot">
+  </div>
 </form>
 
 <script type="text/javascript" charset="utf-8">
