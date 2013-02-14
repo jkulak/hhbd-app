@@ -37,6 +37,9 @@ class CommentController extends Zend_Controller_Action
 
     // Verify Honey Pot spam
     if (strlen($honeyPotValue) > 0) {
+      // check if filter is working by loggin those requestes
+      Zend_Registry::get('Logger')->info('Spamer? >' . $honeyPotValue . '< - content: ' . $content . ' - author: ' . $author);
+
       // it's just spam, exit
       exit();
     }
