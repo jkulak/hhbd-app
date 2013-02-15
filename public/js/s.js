@@ -92,21 +92,12 @@ $(function(){
   $("#q").focus(function(){
     if($(this).text() == "Szukaj...") $(this).text("")
   });
-  // $("#q").focus();
 
   $('table tr').hover(
      function() {
       $(this).toggleClass('zebra');
      }
   );
-  
-  $('#rateUp').click(function() {
-    $('#upCount').text(parseInt($('#upCount').text())+1);
-  });
-
-  $('#rateDown').click(function() {
-    $('#downCount').text(parseInt($('#downCount').text())+1);
-  });
   
   // unhide javascript functionality, and hide what can be revelaed using js
   $('.js-visible').show();
@@ -126,6 +117,7 @@ $(function(){
     return false;
   });
 
+  // submit comments 
   $('#submit').click(function() {
     var dataString = $('#post-comment').serialize();
     $.ajax({
@@ -140,6 +132,22 @@ $(function(){
         alert('Problem z dodaniem komentarza, spróbuj za jakiś czas.');
       }
     })
+    return false;
+  });
+
+  // flag videoclip
+  $('#rateDown').click(function() {
+    $.ajax({
+      type: 'POST',
+      url: '/api/songs/flag-video',
+      success: function(data) {
+        $('#downCount').text(parseInt($('#downCount').text())+1);
+      },
+      error: function() {
+        alert('Problem ze zgłoszeniem, spróbuj za jakiś czas.');
+      }
+    })
+    
     return false;
   });
 });

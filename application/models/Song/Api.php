@@ -102,7 +102,7 @@ class Model_Song_Api extends Jkl_Model_Api
       $query = 'UPDATE songs SET youtube_url="' . $url . '" WHERE id=' . $id;
       $this->_db->query($query);
       $params['youtube_url'] = $url;
-      Zend_Registry::get('Logger')->info('Save YouTube ' . $params['title'] . '(' . $id . '): ' . $url); 
+      // Zend_Registry::get('Logger')->info('Save YouTube ' . $params['title'] . '(' . $id . '): ' . $url); 
     }
 
     $item = new Model_Song_Container($params);
@@ -366,5 +366,15 @@ class Model_Song_Api extends Jkl_Model_Api
     }
     return $artists;  
   }
-  
+
+  /**
+   * Increases youtube_url_flag number for given song id
+   */
+  public function flagVideo($id)
+  {
+    $id = intval($id);
+    $query = 'UPDATE songs SET `youtube_url_flag`=`youtube_url_flag`+1 WHERE id="' . $id . '"';
+    // echo $query;
+    $this->_db->query($query);
+  }
 }

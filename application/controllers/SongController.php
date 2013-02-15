@@ -20,6 +20,16 @@ class SongController extends Zend_Controller_Action
   public function indexAction()
   {
   }
+
+  public function flagVideoAction()
+  {
+    $reg = "/^([\w\d\.:]+).*-s(\d+).*/";
+    $id = preg_replace($reg, "$2", $_SERVER['HTTP_REFERER']);
+
+    // save flag info
+    $result = Model_Song_Api::getInstance()->flagVideo($id);
+    exit();
+  }
   
   public function viewAction()
   {
@@ -211,4 +221,5 @@ class SongController extends Zend_Controller_Action
     
     return $description;
   }
+
 }

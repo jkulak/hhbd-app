@@ -292,8 +292,15 @@
           </map>
           <reverse>%s-s%d/edytuj-tekst.html</reverse>
         </songEditLyrics>
-        
-        
+
+        <!-- api -->
+         <apiSongsFlagVideo>
+          <route>api/songs/flag-video</route>
+          <defaults>
+            <controller>song</controller>
+            <action>flag-video</action>
+          </defaults>
+        </apiSongsFlagVideo>
         
         <!-- ADMIN INTERFACE ROUTES -->
         
