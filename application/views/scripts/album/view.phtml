@@ -57,7 +57,25 @@
       <?php if ($this->album->voteCount > 3): ?>
         <li><span>Ocena:</span> <?php echo $this->album->rating ?>/10 (<?php echo $this->album->voteCount ?> głosów) Możliwość ponownego głosowania już wkrótce! :)</li>
       <?php endif ?>
-  	</ul>
+    </ul>
+    
+    <ul id="controll">
+        <li id="in-collection">
+            <?php if ($this->inCollection): ?>
+                Album jest w Twojej kolekcji (<a id="remove-from-collection" href="<?php echo $this->url(array('id' => $this->album->id), 'removeFromCollection') ?>">usuń</a>)
+            <?php else: ?>
+                <a id="add-to-collection" href="<?php echo $this->url(array('id' => $this->album->id), 'saveToCollection') ?>">Dodaj do swojej kolekcji</a>
+            <?php endif ?>
+        </li>
+        <li id="in-wishlist">
+            <?php if ($this->inWishlist): ?>
+                Album jest w Twojej chcęliście (<a id="remove-from-wishlist" href="<?php echo $this->url(array('id' => $this->album->id), 'removeFromWishlist') ?>">usuń</a>)
+            <?php else: ?>
+                <a id="add-to-wishlist" href="<?php echo $this->url(array('id' => $this->album->id), 'saveToWishlist') ?>">Dodaj do swojej chcęlisty</a>
+            <?php endif ?>
+        </li>
+    </ul>
+    
   </div> <!-- brief -->
   
   <?php if (!empty($this->album->tracklist->items)): ?>

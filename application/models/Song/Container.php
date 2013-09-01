@@ -48,8 +48,6 @@ class Model_Song_Container
       $this->youTubeUrl = $params['youtube_url'];
     }
 
-    $this->youTubeUrlFlag = $params['youtube_url_flag'];
-
     if (!empty($params['featured'])) {
       $this->featured = $params['featured'];
     }

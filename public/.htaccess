@@ -7,11 +7,20 @@ SetEnv APPLICATION_ENV development
 
 RewriteEngine On
 
-# RewriteCond %{HTTP_HOST} ^hhbd.pl(.*)
+# old images hotlinking
+RewriteRule ^imgs/.*$ s/hip-hop.jpg
+
+# RewriteCond %{HTTP_HOST} ^hhbd.megiteam.pl(.*)
 # RewriteRule ^(.*)$ http://www.hhbd.pl/$1 [R=301,L]
 
+# RewriteCond %{HTTP_HOST} ^hhbd.pl.griller(.*)
+# RewriteRule ^(.*)$ http://www.hhbd.pl.griller/$1 [R=301,L]
+
+# Zend Framework configuration
 RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^.*$ - [NC,L]
+
+# rewrites all requestes to index.php
 RewriteRule ^.*$ index.php [NC,L]

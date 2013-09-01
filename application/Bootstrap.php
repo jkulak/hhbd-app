@@ -27,7 +27,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     
     // Read Resources section and put it in registry
     $resourcesConfig = $this->getOption('resources');
-    Zend_Registry::set('Memcached', Jkl_Cache::getInstance());
+    // Zend_Registry::set('Memcached', Jkl_Cache::getInstance());
 
     // Start routing
     $frontController = Zend_Controller_Front::getInstance();
@@ -53,8 +53,5 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     $view->headMeta()->setName('author', 'Jakub Kułak, www.webascrazy.net');
     $view->headTitle()->setSeparator(' - ');
     $view->headTitle('Hhbd.pl');
-    
-    $configApp = Zend_Registry::get('Config_App');
-    $view->headIncludes = $configApp['includes'];
   }
 }

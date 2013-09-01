@@ -1,7 +1,5 @@
 <?php
 
-define('MAX_COMMENT_LENGTH', 1000);
-
 class CommentController extends Zend_Controller_Action
 {
   
@@ -33,16 +31,6 @@ class CommentController extends Zend_Controller_Action
     $authorIp = $_SERVER['REMOTE_ADDR'];
     $objectId = $this->params['com_object_id'];
     $objectType = $this->params['com_object_type'];
-    $honeyPotValue = $this->params['email-honey-pot'];
-
-    // Verify Honey Pot spam
-    if (strlen($honeyPotValue) > 0) {
-      // check if filter is working by loggin those requestes
-      Zend_Registry::get('Logger')->info('Spamer? >' . $honeyPotValue . '< - content: ' . $content . ' - author: ' . $author);
-
-      // it's just spam, exit
-      exit();
-    }
 
     switch ($this->params['com_object_type']) {
       case 'a':
@@ -79,24 +67,19 @@ class CommentController extends Zend_Controller_Action
     }
     
     // return error for non ajax request
-    //if  (!$this->getRequest()->isXmlHttpRequest()) {  
-    //}
-
-
-    // verify if content not empty
-    if (empty($content)) {
-      $redirect .= '?postError=1&emptyComment=1#comments';
-      header("Location: /" . str_replace(' ', '+', $redirect));
-      exit();
-    }
-
-    // verify if content not too long
-    if (strlen($content) > MAX_COMMENT_LENGTH) {
-      $redirect .= '?postError=1&commentTooLong=1#comments';
-      header("Location: /" . str_replace(' ', '+', $redirect));
-      exit();
-    }
+    if  (!$this->getRequest()->isXmlHttpRequest()) {  
+      if (empty($content)) {
+        $redirect .= '?postError=1&emptyComment=1#comments';
+        header("Location: /" . str_replace(' ', '+', $redirect));
+        exit();
+      }
     
+      if (strlen($content) > 1000) {
+        $redirect .= '?postError=1&commentTooLong=1#comments';
+        header("Location: /" . str_replace(' ', '+', $redirect));
+        exit();
+      }
+    }
         
     $result = Model_Comment_Api::getInstance()->postComment($content, $author, $authorIp, $objectId, $objectType, $authorId);
     

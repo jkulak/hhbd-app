@@ -59,6 +59,20 @@ function commentSuccess(data) {
   $(newComment).prependTo("#comments ul").fadeIn(2500);
 }
 
+/**
+ * Handling actions that require logged in user
+ */
+function notLoggedIn() {
+  alert('Musisz być zalogowany, żeby wykonać tą akcję!');
+}
+
+/** 
+ * Handling xhr errors
+ */
+function requestFailure() {
+  alert('Wystąpił jakiś problem, my się nim zajmiemy, a Ty spróbuj za jakiś czas.');
+}
+
 
 $(function(){
   // toggle tracklist additional information
@@ -92,12 +106,21 @@ $(function(){
   $("#q").focus(function(){
     if($(this).text() == "Szukaj...") $(this).text("")
   });
+  // $("#q").focus();
 
   $('table tr').hover(
      function() {
       $(this).toggleClass('zebra');
      }
   );
+  
+  $('#rateUp').click(function() {
+    $('#upCount').text(parseInt($('#upCount').text())+1);
+  });
+
+  $('#rateDown').click(function() {
+    $('#downCount').text(parseInt($('#downCount').text())+1);
+  });
   
   // unhide javascript functionality, and hide what can be revelaed using js
   $('.js-visible').show();
@@ -117,7 +140,6 @@ $(function(){
     return false;
   });
 
-  // submit comments 
   $('#submit').click(function() {
     var dataString = $('#post-comment').serialize();
     $.ajax({
@@ -128,26 +150,70 @@ $(function(){
       success: function(data) {
         commentSuccess(data);
       },
-      error: function() {
-        alert('Problem z dodaniem komentarza, spróbuj za jakiś czas.');
-      }
+      error: requestFailure
     })
     return false;
   });
 
-  // flag videoclip
-  $('#rateDown').click(function() {
-    $.ajax({
-      type: 'POST',
-      url: '/api/songs/flag-video',
-      success: function(data) {
-        $('#downCount').text(parseInt($('#downCount').text())+1);
-      },
-      error: function() {
-        alert('Problem ze zgłoszeniem, spróbuj za jakiś czas.');
-      }
-    })
-    
-    return false;
+  // lists, collections, wishlists
+  $('#add-to-collection').click(function(){
+     $.ajax({
+        url: $(this).attr('href'),
+        success: function(data) {
+          if (data.success == 1) {
+            $('#in-collection').html('Album jest w Twojej kolekcji (<a id="remove-from-collection" href="/' + parseInt(data.albumId) + '/usun-z-kolekcji.html">usuń</a>)');
+          } else {
+            if (data.errorCode == 1) {notLoggedIn();};
+          }
+        },
+        error: requestFailure
+      })
+      return false;
   });
+
+  $('#add-to-wishlist').click(function(){
+     $.ajax({
+        url: $(this).attr('href'),
+        success: function(data) {
+          if (data.success == 1) {
+            $('#in-wishlist').html('Album jest w Twojej chcęliście (<a id="remove-from-wishlist" href="/' + parseInt(data.albumId) + '/usun-z-chcelisty.html">usuń</a>)');
+          } else {
+            if (data.errorCode == 1) {notLoggedIn();};
+          }
+        },
+        error: requestFailure
+      })
+      return false;
+  });
+  
+  $('#remove-from-collection').click(function(){
+     $.ajax({
+        url: $(this).attr('href'),
+        success: function(data) {
+          if (data.success == 1) {
+            $('#in-collection').html('<a id="add-to-collection" href="/' + parseInt(data.albumId) + '/dodaj-do-kolekcji.html">Dodaj do swojej kolekcji</a>');
+          } else {
+            if (data.errorCode == 1) {notLoggedIn();};
+          }
+        },
+        error: requestFailure
+      })
+      return false;
+  });
+  
+  $('#remove-from-wishlist').click(function(){
+     $.ajax({
+        url: $(this).attr('href'),
+        success: function(data) {
+          if (data.success == 1) {
+            $('#in-wishlist').html('<a id="add-to-wishlist" href="/' + parseInt(data.albumId) + '/dodaj-do-chcelisty.html">Dodaj do swojej chcęlisty</a>');
+          } else {
+            if (data.errorCode == 1) {notLoggedIn();};
+          }
+        },
+        error: requestFailure
+      })
+      return false;
+  });
+
 });
