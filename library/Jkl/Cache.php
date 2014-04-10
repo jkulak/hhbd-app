@@ -18,7 +18,7 @@ class Jkl_Cache
    *
    * @return Jkl_Db
    */
-  public static function getInstance()
+  public static function getInstance($adapter = null, $params = null)
   {
       if (null === self::$_instance) {
           self::$_instance = new self();
