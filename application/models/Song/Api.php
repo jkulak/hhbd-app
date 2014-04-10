@@ -73,7 +73,7 @@ class Model_Song_Api extends Jkl_Model_Api
         if ($params['featured']->items[$i]->artist->name != 'V/A') {
           $albumArtist = $params['featured']->items[$i]->artist;
           // we set artists for this song, so we can exit
-          break(0);
+          break(1);
         }
       }
     } else {

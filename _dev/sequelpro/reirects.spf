@@ -47,6 +47,13 @@
 	<array/>
 	<key>queryHistory</key>
 	<array>
+		<string>SELECT count(*)
+FROM albums t1, album_artist_lookup t2, band_lookup t3
+WHERE (t3.`bandid`=t2.`artistid` AND t3.`artistid`=6 AND t1.`id`=t2.`albumid`)
+
+SELECT count(*) 
+FROM albums t1, album_artist_lookup t2
+WHERE (t1.id=t2.albumid AND t2.artistid=6)</string>
 		<string>SELECT t1.id AS sng_id, t1.title AS sng_title
 FROM songs t1
 WHERE (t1.`urlname` = "Intro")</string>
@@ -117,28 +124,6 @@ ORDER BY ser_count DESC
 LIMIT 15</string>
 		<string>SELECT *
 FROM searches t1
-ORDER BY id DESC
-LIMIT 4</string>
-		<string>SELECT *, count(searchstring) AS count 
-FROM searches t1
-GROUP BY t1.`searchstring`
-ORDER BY count DESC
-LIMIT 15</string>
-		<string>SELECT *, count(searchstring) AS count 
-FROM searches t1
-GROUP BY t1.`searchstring`
-ORDER BY count DESC
-LIMIT 10</string>
-		<string>SELECT *, count(searchstring) AS count 
-FROM searches t1
-GROUP BY t1.`searchstring`
-ORDER BY count</string>
-		<string>SELECT count(searchstring) AS count 
-FROM searches t1
-GROUP BY t1.`searchstring`
-ORDER BY count</string>
-		<string>SELECT *
-FROM searches
 ORDER BY id DESC
 LIMIT 4</string>
 	</array>

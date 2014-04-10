@@ -17,7 +17,7 @@ class Jkl_Tools_Date
     # code...
   }
   
-  public function getNormalDate($date)
+  public static function getNormalDate($date)
   {    
     $year = substr($date, 0, 4);
     if ((int)substr($date, 5, 2) != 0) {

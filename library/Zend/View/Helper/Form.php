@@ -15,8 +15,8 @@
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id: Form.php 24201 2011-07-05 16:22:04Z matthew $
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -28,7 +28,7 @@ require_once 'Zend/View/Helper/FormElement.php';
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_View_Helper_Form extends Zend_View_Helper_FormElement
@@ -62,6 +62,10 @@ class Zend_View_Helper_Form extends Zend_View_Helper_FormElement
             $name = '';
         }
         
+        if ($this->_isHtml5() && array_key_exists('action', $attribs) && !$attribs['action']) {
+            unset($attribs['action']);
+        }
+
         if ( array_key_exists('name', $attribs) && empty($attribs['id'])) {
             unset($attribs['id']);
         }

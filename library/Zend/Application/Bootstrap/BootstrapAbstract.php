@@ -15,10 +15,20 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BootstrapAbstract.php 23775 2011-03-01 17:25:24Z ralph $
+ * @version    $Id$
  */
+
+/**
+ * @see Zend_Application_Bootstrap_Bootstrapper
+ */
+require_once 'Zend/Application/Bootstrap/Bootstrapper.php';
+
+/**
+ * @see Zend_Application_Bootstrap_ResourceBootstrapper
+ */
+require_once 'Zend/Application/Bootstrap/ResourceBootstrapper.php';
 
 /**
  * Abstract base class for bootstrap classes
@@ -28,7 +38,7 @@
  * @category   Zend
  * @package    Zend_Application
  * @subpackage Bootstrap
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 abstract class Zend_Application_Bootstrap_BootstrapAbstract
@@ -352,7 +362,9 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
                 continue;
             }
 
-            if (class_exists($plugin)) { //@SEE ZF-7550
+            if (class_exists($plugin)
+            && is_subclass_of($plugin, 'Zend_Application_Resource_Resource')
+            ) { //@SEE ZF-7550
                 $spec = (array) $spec;
                 $spec['bootstrap'] = $this;
                 $instance = new $plugin($spec);
