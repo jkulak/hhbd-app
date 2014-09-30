@@ -1,2 +1,6 @@
 *.ini
 .DS_Store
+
+.berkshelf
+.htaccess
+.vagrant

@@ -1,0 +1,9 @@
+source "https://supermarket.getchef.com"
+
+# metadata
+
+cookbook "app", "> 0.0", path: "./site-cookbooks/app"
+cookbook "apt"
+cookbook "apache2", git: "https://github.com/onehealth-cookbooks/apache2"
+cookbook "database", "~>2.2.0"
+cookbook 'memcached', '~> 1.7.2'

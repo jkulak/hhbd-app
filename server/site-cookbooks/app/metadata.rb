@@ -1,0 +1,11 @@
+name             'app'
+maintainer       'WebAsCrazy.net'
+maintainer_email 'jakub.kulak@gmail.com'
+license          'All rights reserved'
+description      'Installs/Configures app'
+version          '0.1.0'
+
+# depends 'apt'
+depends 'apache2'
+depends 'database'
+depends 'memcached'

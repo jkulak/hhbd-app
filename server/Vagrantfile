@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+MACHINE_NAME = "hhbd-pl"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # fixing: https://github.com/mitchellh/vagrant/issues/1673
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
+  config.vm.provision "shell", path: "provision.sh"
+  # config.vm.provision :shell, :inline => "apt-get -y install git && cd /root/dokku && #{make_cmd}"
+
+  config.berkshelf.enabled = true
+
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.hostname = MACHINE_NAME
+
+  config.vm.provider "virtualbox" do |vb|
+
+    vb.name = MACHINE_NAME
+  end
+
+  config.vm.network "private_network", ip: "192.168.99.99"
+  config.vm.network "forwarded_port", guest: 7777, host: 8888
+
+  config.vm.synced_folder "../www", "/var/www"
+
+  config.vm.synced_folder "../../hhbd.pl-content/s.hhbd.pl", "/var/www/s.hhbd.pl"
+  config.vm.synced_folder "../../hhbd.pl-content/db", "/vagrant/db"
+
+  config.vm.provision "chef_solo" do |chef|
+
+    chef.roles_path = "./roles"
+    chef.add_role "dev"
+    # chef.log_level = :debug
+  end
+
+end
