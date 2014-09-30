@@ -31,8 +31,8 @@ end
 
 # http://hhbd.pl.vmx/
 web_app "000-hhbd.pl" do
-  server_name "hhbd.pl.vmx"
-  server_aliases ["www.hhbd.pl.vmx"]
+  server_name "www.hhbd.pl.vmx"
+  server_aliases ["hhbd.pl.vmx"]
   allow_override "All"
   docroot "/var/www/hhbd.pl/public"
   # server_port "7777"

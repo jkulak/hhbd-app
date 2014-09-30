@@ -1,8 +1,12 @@
 hhbdevolution
 =============
 
-This repository was created from http://code.google.com/p/hhbdevolution/source/detail?r=195 (tag 0.67), skipping Collection and List changes - which are still available in Google SVN repository.
+## Instalation
 
+Mount content directories in Vagrantfile
+
+* config.vm.synced_folder "../../hhbd.pl-content/s.hhbd.pl", "/var/www/s.hhbd.pl"
+* config.vm.synced_folder "../../hhbd.pl-content/db", "/vagrant/db"
 
 ## Changelog
 
@@ -103,3 +107,7 @@ v0.33 ()
  * ostylowane prawe bloczki na odsłonach wyszukiwania
  * gotowa stopka
  * opis albumu jest pokazywany domyślnie, a wygenerowany jest ukrywany, z możliwością pokazania po kliknięciu w link, jeżeli nie ma opisu albumu, to domyślnie pokazywany jest wygenerowany
+
+## Info
+
+This repository was created from http://code.google.com/p/hhbdevolution/source/detail?r=195 (tag 0.67), skipping Collection and List changes - which are still available in Google SVN repository.
