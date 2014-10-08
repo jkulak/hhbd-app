@@ -2,6 +2,7 @@
 
 # 2014-10-08
 # Jakub Kułak
+#
 # This script is used to deploy hhbd to beta.hhbd.pl using Jenkins
 
 APP_PATH="/home/hhbd/www/vhosts/beta.hhbd.pl"
@@ -11,11 +12,11 @@ echo "Deploying beta.hhbd.pl"
 
 TAG_NAME=$DATE-$1
 
-# copy app code
-cp -rf www/hhbd.pl $APP_PATH/code/tags/$TAG_NAME
+#clone read-only repo from github
+git clone git://github.com/jkulak/hhbd.git $APP_PATH/code/tags/$TAG_NAME
 
 # copy previous .httaccess instead of creating it from example
-cp $APP_PATH/public/.htaccess $APP_PATH/code/tags/$TAG_NAME/public/
+cp $APP_PATH/www/public/.htaccess $APP_PATH/code/tags/$TAG_NAME/www/public/
 
 # copy previous application.ini (database, baseUrl)
 cp $APP_PATH/application/configs/application.ini $APP_PATH/code/tags/$TAG_NAME/www/hhbd.pl/application/configs/
