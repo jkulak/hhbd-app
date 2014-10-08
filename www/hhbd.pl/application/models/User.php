@@ -2,13 +2,13 @@
 
 class Model_User extends Zend_Db_Table_Abstract
 {
-  
+
   static private $_instance;
-  
+
   // db table name
   protected $_name = 'hhb_users';
   static public $passwordSalt = 'this is long enough safety salt!';
-  
+
   /**
    * Singleton instance
    *
@@ -21,14 +21,14 @@ class Model_User extends Zend_Db_Table_Abstract
       }
       return self::$_instance;
   }
-  
+
   /**
    * Creates object and fetches the list from database result
    */
   private function _getList($query)
   {
     $result = $this->_db->fetchAll($query);;
-    $list = new Jkl_List('User list'); 
+    $list = new Jkl_List('User list');
     foreach ($result as $params) {
       // conversion to stdObject, because blah :/ Model_UserContainer takes objects as parameters
       $list->add(new Model_User_Container((object)$params));
@@ -45,12 +45,12 @@ class Model_User extends Zend_Db_Table_Abstract
     $errors = array();
 
     // Display name validation
-    $validAlnum = new Zend_Validate_Alnum();     
+    $validAlnum = new Zend_Validate_Alnum();
     $validAlnum->setMessage(
         'Możesz używać tylko liter i cyfr.',
         Zend_Validate_Alnum::NOT_ALNUM
     );
-    
+
     $validLength = new Zend_Validate_StringLength(3, 30);
     $validLength->setMessage(
         "Wpisz co najmniej %min% znaki.",
@@ -60,7 +60,7 @@ class Model_User extends Zend_Db_Table_Abstract
         "Wpisz maksymalnie %max% znaków.",
         Zend_Validate_StringLength::TOO_LONG
     );
-    
+
     $validatorChain = new Zend_Validate();
     $validatorChain->addValidator($validLength)->addValidator($validAlnum);
 
@@ -69,9 +69,9 @@ class Model_User extends Zend_Db_Table_Abstract
             $errors['displayName'][] = $message;
         }
     }
-    
-    
-    // 
+
+
+    //
     // $validDisplayName = new Zend_Validate_Alnum();
     //  if (! $validDisplayName->isValid($data['display-name'])) {
     //      $errors['displayName'][] = "Nazwa może składać się tylko z liter i cyfr i _.";
@@ -95,7 +95,7 @@ class Model_User extends Zend_Db_Table_Abstract
     // if (! Zend_Validate::is($data['first-name'], 'NotEmpty')) {
     //    $errors['fistName'][] = "Please provide your first name.";
     // }
-    // 
+    //
     // // Last Name
     // if (! Zend_Validate::is($data['last-name'], 'NotEmpty')) {
     //    $errors['lastName'][] = "Please provide your last name.";
@@ -119,7 +119,7 @@ class Model_User extends Zend_Db_Table_Abstract
         "Wpisz co najmniej %min% znaków.",
         Zend_Validate_StringLength::TOO_SHORT
     );
-    
+
     if (! $validLength->isValid($data['password'])) {
       foreach ($validLength->getMessages() as $message) {
           $errors['password'][] = $message;
@@ -127,7 +127,7 @@ class Model_User extends Zend_Db_Table_Abstract
        // $errors['password'][] = "Twoje hasło musi mieć od 6 do 20 znaków.";
     }
 
-    // If no errors, insert the 
+    // If no errors, insert the
     if (count($errors) == 0) {
       $data = array (
         // 'usr_first_name' => $data['first-name'],
@@ -146,11 +146,11 @@ class Model_User extends Zend_Db_Table_Abstract
       return $errors;
     }
   }
-  
+
   public function findByEmail($email)
   {
     $email = strval($email);
-    
+
     $result = $this->fetchAll('usr_email = "' . $email . '"');
     if (count($result) > 0) {
       return new Model_User_Container($result->current());
@@ -159,24 +159,24 @@ class Model_User extends Zend_Db_Table_Abstract
     {
       return false;
     }
-    
+
   }
-  
+
   public function findByDisplayName($name)
   {
     $name = strval($name);
-    
+
     $rows = $this->fetchAll('usr_display_name = "' . $name . '"');
     return $rows;
   }
-  
+
   public function findById($id)
   {
     $id = intval($id);
     $result = $this->find($id);
     return new Model_User_Container($result->current());
   }
-  
+
   /**
    * Returns list of users that edited lyrics of selected song
    *

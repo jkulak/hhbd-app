@@ -4,3 +4,5 @@
 .berkshelf
 .htaccess
 .vagrant
+
+server/Berksfile.lock

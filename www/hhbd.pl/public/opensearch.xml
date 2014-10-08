@@ -5,5 +5,5 @@
   <Description>Szukaj w polskim hip-hopie: Baza dyskografii, tekstów i teledysków polskich wykonawców hip-hop.</Description>
   <InputEncoding>UTF-8</InputEncoding>
   <Image width="16" height="16" type="image/x-icon">/favicon.ico</Image>
-  <Url type="text/html" method="get" template="http://hhbdevolution.kosiarka/szukaj?q={searchTerms}"></Url>
+  <Url type="text/html" method="get" template="http://www.hhbd.pl/szukaj?q={searchTerms}"></Url>
 </OpenSearchDescription>
