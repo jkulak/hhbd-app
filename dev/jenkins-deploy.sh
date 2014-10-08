@@ -9,39 +9,29 @@ APP_PATH="/home/hhbd/www/vhosts/beta.hhbd.pl"
 DATE=$(date +%F)
 
 echo "Deploying hhbd.pl"
-echo "---> to: $APP_PATH";
 
-if [[ "$1" != "" ]]; then
+TAG_NAME=$DATE-$BUILD_TAG
 
-  TAG_NAME=$DATE-$1
+# copy app code
+cp -rf www/hhbd.pl $APP_PATH/code/tags/$TAG_NAME
 
-  #clone read-only repo from github
-  # git clone git://github.com/jkulak/hhbd.git $APP_PATH/code/tags/$TAG_NAME
+# copy previous .httaccess instead of creating it from example
+cp $APP_PATH/public/.htaccess $APP_PATH/code/tags/$TAG_NAME/public/
 
-  echo "$WORKSPACE"
-  echo $WORKSPACE
+# copy previous application.ini (database, baseUrl)
+cp $APP_PATH/application/configs/application.ini $APP_PATH/code/tags/$TAG_NAME/www/hhbd.pl/application/configs/
 
-  echo "Dupa"
+# create temporary new code link
+ln -s $APP_PATH/code/tags/$TAG_NAME $APP_PATH/code/new
 
-  echo $1
-  echo "$1"
+# Remove previous prev link, we keep it after build for quick switch to previous version in case of problems
+rm $APP_PATH/code/prev
 
-  # copy previous .httaccess instead of creating it from example
-  # cp $APP_PATH/www/public/.htaccess $APP_PATH/code/tags/$TAG_NAME/www/hhbd.pl/public/
+# Rename current link to prev link - app stops working here for a millisecond
+mv $APP_PATH/code/current $APP_PATH/code/prev
 
-  # # copy previous application.ini (database, baseUrl)
-  # cp $APP_PATH/www/application/configs/application.ini $APP_PATH/code/tags/$TAG_NAME/www/hhbd.pl/application/configs/
+# Rename newest tag to current - app starts working here again
+mv $APP_PATH/code/new $APP_PATH/code/current
 
-  # # make symbolic link to image content
-  # ln -s $APP_PATH/svn/content/images/ $APP_PATH/code/tags/$TAG_NAME/www/hhbd.pl/public/database
-
-  # ln -s $APP_PATH/code/tags/$TAG_NAME/www/hhbd.pl $APP_PATH/code/new
-  # rm $APP_PATH/code/prev
-  # mv $APP_PATH/code/current $APP_PATH/code/prev
-  # mv $APP_PATH/code/new $APP_PATH/code/current
-  touch $APP_PATH/code/current/.tag-$TAG_NAME
-
-  ls -la $APP_PATH/www
-else
-  echo "Please give this release a name (ie. ./deploy.sh \"Add-voting\")";
-fi
+# Mark current with tag name
+touch $APP_PATH/code/current/.tag-$TAG_NAME
