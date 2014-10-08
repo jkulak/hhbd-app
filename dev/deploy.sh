@@ -2,7 +2,6 @@
 
 # 2014-10-08
 # Jakub Kułak
-#
 # This script is used to deploy hhbd to beta.hhbd.pl using Jenkins
 
 APP_PATH="/home/hhbd/www/vhosts/beta.hhbd.pl"
