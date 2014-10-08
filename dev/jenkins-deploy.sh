@@ -27,6 +27,7 @@ ln -s $APP_PATH/code/tags/$TAG_NAME $APP_PATH/code/new
 # Remove previous prev link, we keep it after build for quick switch to previous version in case of problems
 rm $APP_PATH/code/prev
 
+
 # Rename current link to prev link - app stops working here for a millisecond
 mv $APP_PATH/code/current $APP_PATH/code/prev
 
