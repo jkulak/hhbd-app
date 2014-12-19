@@ -6,3 +6,5 @@
 .vagrant
 
 server/Berksfile.lock
+
+server/nodes/54.69.252.188.json
