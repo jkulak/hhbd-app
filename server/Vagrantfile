@@ -25,13 +25,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     # Configure networking
     config.vm.network :private_network, ip: "192.168.99.99"
+    # config.vm.network :private_network, type: "dhcp"
 
     # Configure synced directoires
-    config.vm.synced_folder "../www", "/var/www/hhbd-app"
-    config.vm.synced_folder "../../hhbd.pl-content/s.hhbd.pl", "/var/www/s.hhbd.pl"
+    config.vm.synced_folder "../www/hhbd.pl", "/var/www/html/hhbd-app"
+    config.vm.synced_folder "../../hhbd.pl-content/s.hhbd.pl", "/var/www/html/s.hhbd.pl"
 
     # Configure provisioning
     config.vm.provision "chef_solo" do |chef|
+        chef.install = false
 
         chef.roles_path = "./roles"
         chef.add_role "dev"

@@ -29,9 +29,14 @@ mysql_database 'maindb' do
   action :create
 end
 
+# Copy dump file
+cookbook_file "/tmp/#{node['app']['db_dump']}" do
+    mode 00755
+end
+
 # import an sql dump from your app_root/data/dump.sql to the my_database database
 execute 'import' do
-  command "mysql -u root -p\"#{node['mysql']['server_root_password']}\" maindb < /vagrant/db/maindb.sql"
+  command "mysql -u root -p\"#{node['mysql']['server_root_password']}\" maindb < /tmp/#{node['app']['db_dump']}"
   action :run
 end
 
