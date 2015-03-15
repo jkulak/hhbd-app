@@ -7,7 +7,7 @@
     <?php endif ?>
     <?php echo $this->news->content ?>
   </p>
-  
+
   <div class="pane" id="comments">
     <div class="header"><h2>Wasze komentarze <span class="hidden">na temat <?php echo $this->news->title ?></span></h2></div>
     <?php echo $this->partial('comments/_form.phtml', array('comObjectId' => $this->news->id, 'comObjectType' => Model_Comment_Container::TYPE_NEWS)) ?>
@@ -25,5 +25,3 @@
     <?php echo $this->partial('news/box/_list.phtml', array('items' => $this->recentNews->items)) ?>
   </div>
 </div>
-
-<?php echo $this->partial('common/_stat.phtml', array('type' => 'news', 'id' => $this->news->id)) ?>

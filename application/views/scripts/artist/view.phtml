@@ -6,10 +6,10 @@
   	  <img src="<?php echo $this->artist->photos->items[0]->url ?>" alt="Zdjęcie <?php echo $this->artist->name ?>" title="<?php echo $this->artist->name ?>" class="image" />
   	</div>
 	<?php endif ?>
-  	
+
 	<div id="brief">
   	<h2 class="hidden">Informacje podstawowe</h2>
-  	
+
   	<ul id="essential">
       <?php if (!empty($this->artist->realName)): ?>
         <li>Nazywa się: <?php echo $this->artist->realName ?></li>
@@ -59,7 +59,7 @@
            <?php endif ?> -->
   	</ul>
   </div> <!-- brief -->
-  
+
   <?php if (!empty($this->artist->albums->items)): ?>
   <div class="albumlist pane">
     <div class="header">
@@ -74,7 +74,7 @@
     </div>
   </div>
   <?php endif ?>
-  
+
   <?php if (!empty($this->artist->projectAlbums->items)): ?>
   <div class="albumlist pane">
     <div class="header">
@@ -93,7 +93,7 @@
   	 <?php if (!empty($this->artist->description)): ?><p><?php echo $this->artist->description ?></p><?php endif ?>
     <p class="<?php if (!empty($this->artist->description)): ?>js-hidden <?php endif ?>auto"><?php echo $this->artist->autoDescription ?></p>
   </div>
-  
+
   <div class="pane" id="comments">
      <div class="header"><h2>Wasze komentarze <span class="hidden">na temat <?php echo $this->artist->name ?></span></h2></div>
      <?php echo $this->partial('comments/_form.phtml', array('comObjectId' => $this->artist->id, 'comObjectType' => Model_Comment_Container::TYPE_ARTIST)) ?>
@@ -105,5 +105,3 @@
 <div id="additional">
   <?php echo $this->render('artist/_additional.phtml') ?>
 </div>
-
-<?php echo $this->partial('common/_stat.phtml', array('type' => 'artist', 'id' => $this->artist->id)) ?>

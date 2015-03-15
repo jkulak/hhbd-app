@@ -24,7 +24,7 @@
       </ul>
     </div> <!-- brief -->
     </section>
-  
+
   <?php if (!empty($this->label->releases->items)): ?>
   <div class="albumlist pane">
     <div class="header">
@@ -35,7 +35,7 @@
     </div>
   </div>
   <?php endif ?>
-  
+
   <div id="description" class="pane">
     <div class="header">
       <h2>Profil wytwórni</h2><?php if (!empty($this->label->description)): ?><span class="toggle js-visible"><a rel="nofollow"  href="?showDefaultDescription=1">Pokaż opis standardowy</a></span><?php endif ?>
@@ -43,7 +43,7 @@
   	 <?php if (!empty($this->label->description)): ?><p><?php echo $this->label->description ?></p><?php endif ?>
     <p class="<?php if (!empty($this->label->description)): ?>js-hidden <?php endif ?>auto"><?php echo $this->label->autoDescription ?></p>
   </div>
-  
+
   <div class="pane" id="comments">
     <div class="header"><h2>Wasze komentarze <span class="hidden">na temat <?php echo $this->label->name ?></span></h2></div>
     <?php echo $this->partial('comments/_form.phtml', array('comObjectId' => $this->label->id, 'comObjectType' => Model_Comment_Container::TYPE_LABEL)) ?>
@@ -57,10 +57,8 @@
     <h3 class="hidden">Google Ads</h3>
     <?php echo $this->partial('common/googleAds/_rectangle.phtml'); ?>
   </div>
-  
+
   <?php if (isset($this->withMostAlbums->items)): ?>
     <?php echo $this->partial('label/box/_withMostAlbums.phtml', array('withMostAlbums' => $this->withMostAlbums)) ?>
   <?php endif ?>
 </div>
-
-<?php echo $this->partial('common/_stat.phtml', array('type' => 'label', 'id' => $this->label->id)) ?>
