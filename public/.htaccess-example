@@ -1,8 +1,6 @@
 # nazwa srodowiska aplikacji
-SetEnv APPLICATION_ENV production
-
-# sciezka do biblioteki Zenda
-# SetEnv EXTERNAL_ZEND_PATH
+# SetEnv APPLICATION_ENV production
+SetEnv APPLICATION_ENV development
 
 RewriteEngine On
 
